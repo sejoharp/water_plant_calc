@@ -23,29 +23,30 @@ function is_input_invalid(input){
 	}
 	return false;
 }
+function check_precondition(value, error_message, message_point){
+	if(is_input_invalid(value)){
+		$('<li></li>', {
+			text: error_message
+		}).appendTo(message_point);
+	}
+}
+function all_input_correct(messages){
+	return messages.children('li').length === 0;
+}
+
 $('button').on('click', function(){
 	var $messages = $('#messages');
 	var $height = $('#height');
 	var $circumference_top = $('#circumference_top');
 	var $circumference_buttom = $('#circumference_buttom');
 	var $result = $('#result');
-	var valid_input = true;
 
 	$messages.empty();
+	check_precondition($height.val(), 'height invalid.', $messages);
+	check_precondition($circumference_buttom.val(), 'circumference buttom invalid.', $messages);
+	check_precondition($circumference_top.val(), 'circumference top invalid.', $messages);
 
-	if(is_input_invalid($height.val())){
-		$messages.append('<li>height invalid.</li>');
-		valid_input = false;
-	}
-	if(is_input_invalid($circumference_buttom.val())){
-		$messages.append('<li>circumference buttom invalid.</li>');
-		valid_input = false;
-	}
-	if(is_input_invalid($circumference_top.val())){
-		$messages.append('<li>circumference top invalid.</li>');
-		valid_input = false;
-	}
-	if (valid_input){
+	if (all_input_correct($messages)){
 		var heighte = parseFloat($height.val());
 		var buttome = parseFloat($circumference_buttom.val());
 		var tope = parseFloat($circumference_top.val());

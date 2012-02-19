@@ -16,7 +16,7 @@ label {
 	width: 200px; 
 }
 input {
-	display: inline-block;
+	display: inline;
 	width:50px;
 }
 #messages {
